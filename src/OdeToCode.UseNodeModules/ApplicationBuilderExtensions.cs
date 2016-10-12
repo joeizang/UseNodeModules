@@ -8,6 +8,13 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class ApplicationBuilderExtensions
     {
+        /// <summary>
+        /// Configures and adds static file middleware to serve files directly from the node_modules
+        /// folder in this project
+        /// </summary>
+        /// <param name="app">The IApplicationBuilder object</param>
+        /// <param name="environment">The IHostingEnvironment object</param>
+        /// <returns>The IApplicationBuilder object</returns>
         public static IApplicationBuilder UseNodeModules(this IApplicationBuilder app, 
                                                         IHostingEnvironment environment)
         {

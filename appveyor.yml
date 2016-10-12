@@ -1,7 +1,10 @@
 version: 1.0.{build}
-skip_non_tags: false
+skip_non_tags: true
 build_script:
 - ps: .\build.ps1
+branches:
+  only: 
+  - master
 test: off
 artifacts:
 - path: .\artifacts\**\*.nupkg
@@ -11,6 +14,9 @@ deploy:
   api_key:
     secure: tg20msJwxYqlk0EwjZ1MuPXsX+ORK/7fxdeopd1aSnPaJX+gq9srs7i7VINiYTWS
   skip_symbols: true
+  on:
+    branch: master
+    appveyor_repo_tag: true
 notifications:
 - provider: Email
   to:

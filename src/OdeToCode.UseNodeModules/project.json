@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.0-*",
   "authors": [ "K. Scott Allen" ],
   "copyright": "OdeToCode LLC",
   "description": "Serve static files from node_modules in ASP.NET Core",
