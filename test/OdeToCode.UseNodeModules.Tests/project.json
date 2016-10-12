@@ -4,7 +4,7 @@
   "dependencies": {
     "xunit": "2.2.0-beta3-build3402",
     "dotnet-test-xunit": "2.2.0-preview2-build1029", 
-    "OdeToCode.UseNodeModules": "1.0.0-*",
+    "OdeToCode.UseNodeModules": "1.0-*",
     "Microsoft.AspNetCore.TestHost": "1.0.0"
   },
   "frameworks": {
