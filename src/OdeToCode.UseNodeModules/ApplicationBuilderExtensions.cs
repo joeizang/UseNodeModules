@@ -1,11 +1,14 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Microsoft.AspNetCore.Builder
 {
+    using System;
+    using System.IO;
+
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.FileProviders;
+    using Microsoft.Net.Http.Headers;
+
     public static class ApplicationBuilderExtensions
     {
         /// <summary>
@@ -14,25 +17,37 @@ namespace Microsoft.AspNetCore.Builder
         /// </summary>
         /// <param name="app">The IApplicationBuilder object</param>
         /// <param name="environment">The IHostingEnvironment object</param>
+        /// <param name="maxAge">If specified, the max time that a static file can be cached</param>
         /// <returns>The IApplicationBuilder object</returns>
         public static IApplicationBuilder UseNodeModules(this IApplicationBuilder app, 
-                                                        IHostingEnvironment environment)
+                                                        IHostingEnvironment environment,
+                                                        TimeSpan? maxAge = null)
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (environment == null) throw new ArgumentNullException(nameof(environment));
 
-            AddMiddleware(app, environment);
+            AddMiddleware(app, environment, maxAge);
 
             return app;
         }
 
-        private static void AddMiddleware(IApplicationBuilder app, IHostingEnvironment environment)
+        private static void AddMiddleware(IApplicationBuilder app, IHostingEnvironment environment, TimeSpan? maxAge)
         {
             var path = Path.Combine(environment.ContentRootPath, "node_modules");
             var provider = new PhysicalFileProvider(path);
 
             var options = new FileServerOptions {RequestPath = "/node_modules"};
             options.StaticFileOptions.FileProvider = provider;
+
+            if (maxAge != null)
+            {
+                options.StaticFileOptions.OnPrepareResponse = context =>
+                    {
+                        var headers = context.Context.Response.GetTypedHeaders();
+                        headers.CacheControl = new CacheControlHeaderValue { MaxAge = maxAge, Public = true };
+                    };
+            }
+
             options.EnableDirectoryBrowsing = false;
             app.UseFileServer(options);
         }

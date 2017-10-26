@@ -1,11 +1,14 @@
-﻿using System.IO;
-using System.Net;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Xunit;
-
-namespace OdeToCode.UseNodeModules.Tests
+﻿namespace OdeToCode.UseNodeModules.Tests
 {
+    using System;
+    using System.IO;
+    using System.Net;
+
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.TestHost;
+
+    using Xunit;
+
     public class UseNodeModulesIntegrationTest
     {
         [Fact]
@@ -17,9 +20,10 @@ namespace OdeToCode.UseNodeModules.Tests
             var server = new TestServer(builder);
             var client = server.CreateClient();
 
-            var result = await client.GetStringAsync("/node_modules/hello.txt");
+            var result = await client.GetAsync("/node_modules/hello.txt");
 
-            Assert.Equal("hello!", result);
+            Assert.Equal(TimeSpan.FromSeconds(600), result.Headers.CacheControl.MaxAge);
+            Assert.Equal("hello!", await result.Content.ReadAsStringAsync());
         }
 
         [Fact]
