@@ -16,11 +16,8 @@ exec { & dotnet restore }
 
 exec { & dotnet build .\src\OdeToCode.UseNodeModules -c Release }
 
-$revision = @{ $true = $env:APPVEYOR_BUILD_NUMBER; $false = 1 }[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
-$revision = "{0:D4}" -f [convert]::ToInt32($revision, 10)
-
 pushd .\test\OdeToCode.UseNodeModules.Tests\
 exec { & dotnet test -c Release }
 popd
 
-exec { & dotnet pack .\src\OdeToCode.UseNodeModules -c Release -o .\artifacts --version-suffix=build-$revision }
+exec { & dotnet pack .\src\OdeToCode.UseNodeModules -c Release -o .\artifacts }
