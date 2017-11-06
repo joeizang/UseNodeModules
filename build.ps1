@@ -23,4 +23,4 @@ pushd .\test\OdeToCode.UseNodeModules.Tests\
 exec { & dotnet test -c Release }
 popd
 
-exec { & dotnet pack .\src\OdeToCode.UseNodeModules -c Release -o .\artifacts --version-suffix=$revision }
+exec { & dotnet pack .\src\OdeToCode.UseNodeModules -c Release -o .\artifacts --version-suffix=build-$revision }
