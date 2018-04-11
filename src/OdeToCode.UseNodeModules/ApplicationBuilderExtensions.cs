@@ -21,22 +21,23 @@ namespace Microsoft.AspNetCore.Builder
         /// <returns>The IApplicationBuilder object</returns>
         public static IApplicationBuilder UseNodeModules(this IApplicationBuilder app, 
                                                         IHostingEnvironment environment,
-                                                        TimeSpan? maxAge = null)
+                                                        TimeSpan? maxAge = null,
+                                                        string requestPath = "/node_modules")
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (environment == null) throw new ArgumentNullException(nameof(environment));
 
-            AddMiddleware(app, environment, maxAge);
+            AddMiddleware(app, environment, maxAge, requestPath);
 
             return app;
         }
 
-        private static void AddMiddleware(IApplicationBuilder app, IHostingEnvironment environment, TimeSpan? maxAge)
+        private static void AddMiddleware(IApplicationBuilder app, IHostingEnvironment environment, TimeSpan? maxAge, string requestPath)
         {
             var path = Path.Combine(environment.ContentRootPath, "node_modules");
             var provider = new PhysicalFileProvider(path);
 
-            var options = new FileServerOptions {RequestPath = "/node_modules"};
+            var options = new FileServerOptions {RequestPath = requestPath};
             options.StaticFileOptions.FileProvider = provider;
 
             if (maxAge != null)
