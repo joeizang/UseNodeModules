@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Serve static files from node_modules in ASP.NET Core</Description>
     <Copyright>OdeToCode LLC</Copyright>
-    <VersionPrefix>1.0.5</VersionPrefix>
+    <VersionPrefix>1.0.6</VersionPrefix>
     <Authors>K. Scott Allen</Authors>
     <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>OdeToCode.UseNodeModules</AssemblyName>
