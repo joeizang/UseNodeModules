@@ -39,5 +39,22 @@
 
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
         }
-    }
+
+        [Fact]
+        public async void RespondsToFileInRequestPath()
+        {
+            var builder = new WebHostBuilder();
+            builder.UseContentRoot(Directory.GetCurrentDirectory());
+            builder.UseStartup<RequestPathStartup>();
+            var server = new TestServer(builder);
+            var client = server.CreateClient();
+
+            var result = await client.GetAsync("/vendor/hello.txt");
+
+            Assert.Equal(TimeSpan.FromSeconds(600), result.Headers.CacheControl.MaxAge);
+            Assert.Equal("hello!", await result.Content.ReadAsStringAsync());
+        }
+
+
+  }
 }
