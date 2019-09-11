@@ -7,9 +7,9 @@
 
     public class TestStartup
     {
-        public void Configure(IApplicationBuilder app, IHostingEnvironment environment)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseNodeModules(environment, TimeSpan.FromSeconds(600));
+            app.UseNodeModules(TimeSpan.FromSeconds(600));
         }
     }
 }

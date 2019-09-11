@@ -7,9 +7,9 @@
 
     public class RequestPathStartup
     {
-        public void Configure(IApplicationBuilder app, IHostingEnvironment environment)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseNodeModules(environment, TimeSpan.FromSeconds(600), "/vendor");
+            app.UseNodeModules(TimeSpan.FromSeconds(600), "/vendor");
         }
     }
 }
