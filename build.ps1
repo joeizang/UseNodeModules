@@ -20,4 +20,4 @@ pushd .\test\OdeToCode.UseNodeModules.Tests\
 exec { & dotnet test -c Release }
 popd
 
-exec { & dotnet pack .\src\OdeToCode.UseNodeModules -c Release -o ..\..\artifacts }
+exec { & dotnet pack .\src\OdeToCode.UseNodeModules -c Release -o .\artifacts }

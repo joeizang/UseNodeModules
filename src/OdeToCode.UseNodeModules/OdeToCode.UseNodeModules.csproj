@@ -10,7 +10,7 @@
     <PackageId>OdeToCode.UseNodeModules</PackageId>
     <PackageTags>middleware;static files;node_modules</PackageTags>
     <PackageProjectUrl>https://github.com/OdeToCode/UseNodeModules</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/OdeToCode/UseNodeModules/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/OdeToCode/UseNodeModules</RepositoryUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
