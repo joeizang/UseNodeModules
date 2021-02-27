@@ -1,4 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
+
+using Microsoft.AspNetCore.Hosting;
+
 namespace Microsoft.AspNetCore.Builder
 {
     using Microsoft.AspNetCore.Http;
@@ -32,7 +35,7 @@ namespace Microsoft.AspNetCore.Builder
     private static void AddMiddleware(IApplicationBuilder app, TimeSpan? maxAge, string requestPath)
     {
 
-      var environment = (IHostEnvironment)app.ApplicationServices.GetService(typeof(IHostEnvironment));
+      var environment = (IWebHostEnvironment)app.ApplicationServices.GetService(typeof(IWebHostEnvironment));
 
       var path = Path.Combine(environment.ContentRootPath, "node_modules");
       var provider = new PhysicalFileProvider(path);
